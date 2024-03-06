@@ -155,24 +155,24 @@ function TakeATest() {
           // Chuyển đổi thời gian còn lại thành phút và giây
           const remainingMinutes = Math.floor(remainingTime / (60 * 1000));
           const remainingSeconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
-          // const data = {
-          //   title: dataSelect.data?.[id]?.title,
-          //   des: dataSelect.data?.[id]?.des,
-          //   dataQuestion: dataQuestion,
-          //   time: `${remainingMinutes} phút ${remainingSeconds} giây`,
-          // };
-          // console.log(data);
+          const data = {
+            title: dataSelect.data?.[id]?.title,
+            des: dataSelect.data?.[id]?.des,
+            dataQuestion: dataQuestion,
+            time: `${remainingMinutes} phút ${remainingSeconds} giây`,
+          };
+          console.log(data);
 
-          const data = new FormData();
-          data.append('title', dataSelect.data?.[id]?.title);
-          data.append('des', dataSelect.data?.[id]?.des);
-          data.append('time', `${remainingMinutes} phút ${remainingSeconds} giây`);
+          // const data = new FormData();
+          // data.append('title', dataSelect.data?.[id]?.title);
+          // data.append('des', dataSelect.data?.[id]?.des);
+          // data.append('time', `${remainingMinutes} phút ${remainingSeconds} giây`);
 
-          // Lặp qua mảng dataQuestion và thêm vào FormData
-          dataQuestion.forEach((question, index) => {
-            // Chuyển đối tượng question thành chuỗi JSON và thêm vào FormData
-            data.append(`dataQuestion[${index}]`, JSON.stringify(question));
-          });
+          // // Lặp qua mảng dataQuestion và thêm vào FormData
+          // dataQuestion.forEach((question, index) => {
+          //   // Chuyển đối tượng question thành chuỗi JSON và thêm vào FormData
+          //   data.append(`dataQuestion[${index}]`, JSON.stringify(question));
+          // });
 
           dispatch(checkAnswer(data));
           navigate(`/check-the-answer/${id}`);
