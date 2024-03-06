@@ -1,0 +1,32 @@
+input {
+  outline: none;
+}
+
+textarea {
+  outline: none;
+}
+i {
+  margin-top: 2px;
+}
+div[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: rgb(148 163 184);
+}
+@keyframes progressAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+  -moz-appearance: textfield; /* Firefox */
+}
