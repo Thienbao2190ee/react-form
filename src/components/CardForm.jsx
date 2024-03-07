@@ -54,15 +54,15 @@ function CardForm({
     }
   };
 
-  useEffect(() => {
-    // Ensure the cursor stays at the end after each change
-    if (contentEditableRef.current) {
-      const contentEditable = contentEditableRef.current;
-      const length = contentEditable.innerText.length;
-      contentEditable.focus();
-      window.getSelection().collapse(contentEditable.firstChild, length);
-    }
-  }, [question]);
+  // useEffect(() => {
+  //   // Ensure the cursor stays at the end after each change
+  //   if (contentEditableRef.current) {
+  //     const contentEditable = contentEditableRef.current;
+  //     const length = contentEditable.innerText.length;
+  //     contentEditable.focus();
+  //     window.getSelection().collapse(contentEditable.firstChild, length);
+  //   }
+  // }, [question]);
 
   return (
     <div className="mt-5 border rounded-xl w-[600px] p-5 flex flex-col relative card-form">
@@ -74,13 +74,13 @@ function CardForm({
           <i className="fi fi-br-cross-small"></i>
         </button>
       )}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-start">
         {/* <textarea placeholder="Nhập " className="w-[65%] border-b-2 border-red-400" type="text" /> */}
-        <div className="font-bold">{stt}</div>
+        <div className="font-bold mt-2">{stt}</div>
         <div
           ref={contentEditableRef}
           className="w-[64%] pt-1.5 pb-1.5 px-2 outline-none bg-gray-100"
-          onInput={(e) => {
+          onBlur={(e) => {
             handleChangeQuestion(e);
           }}
           contentEditable={true}
@@ -97,6 +97,7 @@ function CardForm({
             options={[
               { value: 'multiple-choice', label: 'Trắc nghiệm' },
               { value: 'file', label: 'Tải tệp lên' },
+              { value: 'paragraph', label: 'Đoạn văn' },
             ]}
           />
         </div>
@@ -130,8 +131,10 @@ function CardForm({
               </div>
             </div>
           ))
+        ) : typeQuestion.value === 'paragraph' ? (
+          <div className="mt-2 ml-5 ">(Viết đoạn văn)</div>
         ) : (
-          <div className="mt-2">(Tải file)</div>
+          <div className="mt-2 ml-5 ">(Tải file)</div>
         )}
       </div>
       {typeQuestion.value === 'multiple-choice' && (

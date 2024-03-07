@@ -55,11 +55,13 @@ function CreateForm() {
       if (item.question === '') {
         QUESTION += (index + 1).toString() + (dataQuestion.length - 1 === index ? '' : ',');
       } else {
-        await item.dataCorrect.map((it) => {
-          if (it.title === '') {
-            return (QUESTION += (index + 1).toString() + (dataQuestion.length - 1 === index ? '' : ','));
-          }
-        });
+        if (item.type === 'multiple-choice') {
+          await item.dataCorrect.map((it) => {
+            if (it.title === '') {
+              return (QUESTION += (index + 1).toString() + (dataQuestion.length - 1 === index ? '' : ','));
+            }
+          });
+        }
       }
     });
     if (QUESTION === '') {
@@ -131,10 +133,40 @@ function CreateForm() {
             <button
               className="px-5 py-1.5 bg-emerald-400 font-bold text-white rounded-lg mt-3"
               onClick={() => {
-                if (time < 5) {
-                  // Người dùng đã nhấn nút OK
+                if (time) {
+                  if (time < 5) {
+                    // Người dùng đã nhấn nút OK
 
-                  toast.warn('Thời gian phải lớn hơn 5 phút', {
+                    toast.warn('Thời gian phải lớn hơn 5 phút', {
+                      position: 'bottom-right',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: 'light',
+                    });
+                  } else {
+                    const data = { title, des, dataQuestion, time };
+                    Swal.fire({
+                      title: 'Bạn có muốn Tạo bài?',
+                      // text: "You won't be able to revert this!",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Tạo',
+                      cancelButtonText: 'Không',
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        dispatch(createTest(data));
+                        navigate('/');
+                      }
+                    });
+                  }
+                } else {
+                  toast.warn(`Bạn chưa chọn thời gian làm bài`, {
                     position: 'bottom-right',
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -143,23 +175,6 @@ function CreateForm() {
                     draggable: true,
                     progress: undefined,
                     theme: 'light',
-                  });
-                } else {
-                  const data = { title, des, dataQuestion, time };
-                  Swal.fire({
-                    title: 'Bạn có muốn Tạo bài?',
-                    // text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Tạo',
-                    cancelButtonText: 'Không',
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      dispatch(createTest(data));
-                      navigate('/');
-                    }
                   });
                 }
               }}

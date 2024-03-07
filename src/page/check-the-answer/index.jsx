@@ -20,7 +20,7 @@ function CheckTheAnw() {
       const totalQuestion = data[id]?.dataQuestion?.length;
       const scoreOneQuestion = totalQuestion ? 10 / totalQuestion : 0.0;
       let count = 0;
-      data[id]?.dataQuestion.map((item, index) => {
+      data[id]?.dataQuestion?.map((item, index) => {
         const dataCorrect = checkAnswer?.dataQuestion[index]?.dataCorrect;
         console.log(typeof item.dataCorrect);
 
@@ -78,16 +78,28 @@ function CheckTheAnw() {
               <h2 className="border-l-4 px-5 border-red-200 font-bold py-2">Bài làm kiểm tra của bạn</h2>
 
               <div className="mt-5">
-                {data[id]?.dataQuestion.map((item, index) => {
-                  const checkErorr = checkAnswer.dataQuestion[index];
+                {data[id]?.dataQuestion?.map((item, index) => {
+                  const checkErorr = checkAnswer?.dataQuestion[index];
                   return (
                     <div key={index} className="p-5 mb-5 border rounded-xl">
                       <p className="font-bold">
                         {`Câu ${index + 1}`}: {item.question}
                       </p>
                       <div className="mt-2 font-bold">
-                        {item.dataCorrect &&
-                          item.dataCorrect.map((it, i) => {
+                        {item.type === 'paragraph' ? (
+                          <div>
+                            <textarea
+                              disabled
+                              id="message"
+                              rows="4"
+                              value={checkErorr?.dataCorrect}
+                              class="block p-2.5 min-h-40 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Write your thoughts here..."
+                            ></textarea>
+                          </div>
+                        ) : (
+                          item.dataCorrect &&
+                          item.dataCorrect?.map((it, i) => {
                             const dataCorrectUser = checkErorr?.dataCorrect[i];
                             const notCheck = (checkErorr?.dataCorrect || []).some((ite) => ite.correct === 1);
                             return (
@@ -117,19 +129,8 @@ function CheckTheAnw() {
                                 {it.title}
                               </p>
                             );
-                          })}
-                        {/* <p className="rounded-lg flex mb-1 py-1 ">
-                      <i className=" mx-2 fi fi-rr-circle"></i> dáp án a
-                    </p>
-                    <p className="rounded-lg flex mb-1 py-1 ">
-                      <i className=" mx-2 fi fi-rr-circle"></i> dáp án a
-                    </p>
-                    <p className="rounded-lg flex mb-1 py-1 bg-red-200 ">
-                      <i className=" mx-2 fi fi-rr-cross-small"></i> dáp án a
-                    </p>
-                    <p className="rounded-lg flex mb-1 py-1 bg-emerald-200 ">
-                      <i className=" mx-2 fi fi-rr-check"></i> dáp án a
-                    </p> */}
+                          })
+                        )}
                       </div>
                     </div>
                   );
