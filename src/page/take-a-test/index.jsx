@@ -18,7 +18,6 @@ function TakeATest() {
   const [paused, setPaused] = useState(false);
   const [time, setTime] = useState(null); // 15 minutes in seconds
 
-  // console.log(time);
   const dispatch = useDispatch();
 
   const [showButton, setShowButton] = useState(false);
@@ -242,7 +241,6 @@ function TakeATest() {
         </div> */}
             {dataSelect.data?.[id]?.dataQuestion?.map((item, index) => {
               const getAnswerData = (data) => {
-                console.log(data);
                 setDataQuestion((arr) => arr.map((item, i) => (i === index ? { ...item, dataCorrect: data } : item)));
               };
 

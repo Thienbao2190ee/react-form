@@ -103,7 +103,6 @@ function CreateForm() {
               <div className="w-full mt-3">
                 <ReactSelect
                   onChange={(e) => {
-                    console.log(e);
                     if (e.value === 0) {
                       setInput(true);
                     } else {
@@ -149,6 +148,7 @@ function CreateForm() {
                     });
                   } else {
                     const data = { title, des, dataQuestion, time };
+                    console.log(data);
                     Swal.fire({
                       title: 'Bạn có muốn Tạo bài?',
                       // text: "You won't be able to revert this!",

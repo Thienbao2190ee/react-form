@@ -10,6 +10,9 @@ function CheckTheAnw() {
   const dispatch = useDispatch();
   const { data, checkAnswer } = useSelector(selectTest);
 
+  console.log(data);
+  console.log(checkAnswer);
+
   useEffect(() => {
     dispatch(getDataTest());
     dispatch(getCheckAnswer());
@@ -22,10 +25,6 @@ function CheckTheAnw() {
       let count = 0;
       data[id]?.dataQuestion?.map((item, index) => {
         const dataCorrect = checkAnswer?.dataQuestion[index]?.dataCorrect;
-        console.log(typeof item.dataCorrect);
-
-        console.log(item.dataCorrect);
-
         if (dataCorrect) {
           item.dataCorrect?.map((it, i) => {
             if (dataCorrect[i]?.correct === 1 && it?.correct === 1) {
@@ -34,7 +33,6 @@ function CheckTheAnw() {
           });
         }
       });
-      console.log(count);
       return { scores: (count * scoreOneQuestion).toFixed(1), rightSentence: count };
     }
   };

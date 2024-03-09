@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const createTest = createAsyncThunk('test/create', async (data, { rejectWithValue }) => {
   const retrievedData = JSON.parse(localStorage.getItem('dataTest'));
-  console.log(retrievedData);
   if (retrievedData) {
     const newData = [data, ...retrievedData];
     localStorage.setItem('dataTest', JSON.stringify(newData));

@@ -13,7 +13,6 @@ function CardTest({ dataCorrect, question, stt, typeQuestion, getAnswerData }) {
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     const maxSizeInBytes = 10 * 1024 * 1024; // 10MB
-    console.log(maxSizeInBytes);
     if (selectedFile.size > maxSizeInBytes) {
       return toast.warn('File của bạn lớn hơn 10MB', {
         position: 'bottom-right',
@@ -111,6 +110,7 @@ function CardTest({ dataCorrect, question, stt, typeQuestion, getAnswerData }) {
                     className="sr-only"
                     onChange={handleFileChange}
                     disabled={loading}
+                    accept=".mp3, .mp4"
                   />
                   <label
                     htmlFor="file"
